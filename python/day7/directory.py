@@ -66,9 +66,16 @@ for dics in directories:
     if size < 100000:
         totalSum += size
 
-print(f'Total Size of directories under 100000 is: {totalSum}')
+needed = 30000000 - (70000000 - root.getSize())
 
-        
-print(f'{root.name}, {root.size}, {[dic.name for dic in root.directs]}, {root.getSize()}')
-            
+#print(f'n33d: {needed}')
+print(f'FileSize: {min([dics.getSize() for dics in directories if dics.getSize() > needed])}')
+
+#print(f'Total Size of directories under 100000 is: {totalSum}')
+#print(f'{root.name}, {root.size}, {[dic.name for dic in root.directs]}, {root.getSize()}')
+
+
+
+
+
 
