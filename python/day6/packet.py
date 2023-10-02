@@ -8,13 +8,13 @@ count = 0
 for ele in packet:
     count += 1
     marker.append(ele)
-    if len(marker) > 4:
+    if len(marker) > 14:
         del(marker[0])
-    elif len(marker) < 4:
+    elif len(marker) < 14:
         continue
 
-    if len(set(marker)) == 4:
-        print(f'first start-of-packet marker is at: {count}')
+    if len(set(marker)) == 14:
+        print(f'first start-of-message marker is at: {count}')
         break
 
  
