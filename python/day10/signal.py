@@ -5,23 +5,43 @@ class register:
     def __init__(self, signalList, value = 1, cycle = 1):
         self.value = value
         self.cycle = cycle
+        self.crt = 1
         self.signalPoints = signalList
         self.signalStrength = []
 
     def noop(self):
         self.signalCheck()
+        self.draw()
+        self.crtInc()
         self.cycle += 1
 
     def addx(self, x):
         self.signalCheck()
+        self.draw()
+        self.crtInc()
         self.cycle += 1
         self.signalCheck()
+        self.draw()
+        self.crtInc()
         self.cycle += 1
         self.value += int(x)
+
+    def crtInc(self):
+        self.crt += 1
+        if self.crt == 41:
+            print()
+            self.crt = 1
 
     def signalCheck(self):
         if self.cycle in self.signalPoints:
             self.signalStrength.append((self.cycle, self.value))
+
+    def draw(self):
+        if self.crt in range(self.value, self.value+3):
+            print('#',end='')
+        else:
+            print('.',end='')
+
 
 
 def totalSignalStrength(signalList):
@@ -42,7 +62,6 @@ if __name__ == '__main__':
             else:
                 x.addx(str(line.split(' ')[1]))
 
-#    print(x.signalStrength)
     print(f'Total signal Strength is :{totalSignalStrength(x.signalStrength)}')
 
         
