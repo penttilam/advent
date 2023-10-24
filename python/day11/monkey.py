@@ -55,7 +55,7 @@ def monkeyBusiness():
 class monkey:
     def __init__(self, name, holding, operators, test, trueThrow, falseThrow):
         self.name = name
-        self.holding = holding
+        self.holding = [int(item.strip(' \n,')) for item in holding]
         self.operators = operators
         self.testVal = int(test)
         self.trueThrow = trueThrow
@@ -89,26 +89,27 @@ class monkey:
             monkeyPass(self.inHand, self.falseThrow)
 
     def catch(self, item):
-        self.holding.append(str(item))
+        self.holding.append(item)
 
-
-
-    def turn(self):
+    def turn(self, remainder):
         while self.holding:
-            self.inHand = int(self.holding.pop(0).strip(' \n,'))
+            self.inHand = self.holding.pop(0) % remainder
             self.operation()
-            self.bored()
+            #self.bored()
             self.throw()
 
 
 if __name__ == '__main__':
     TROOP =[]
-    rounds = 20
+    rounds = 10000
     for block in getMonkeyData():
         TROOP.append(setMonkey(block))
+    chRemain = 1
+    for monkey in TROOP:
+        chRemain *= monkey.testVal
     while rounds > 0:
         for members in TROOP:
-            members.turn()
+            members.turn(chRemain)
         rounds -= 1
     for monkey in TROOP:
         print(f'Monkey {monkey.name} inspected items {monkey.inspections} times.')
